@@ -3,20 +3,20 @@ const DOM = {
     btnOpenSettings: document.getElementById('btnOpenSettings'),
     btnSaveSettings: document.getElementById('btnSaveSettings'),
     btnTestConn: document.getElementById('btnTestConn'),
-    
+
     // Settings Tabs
     tabDremio: document.getElementById('tabDremio'),
     tabPolaris: document.getElementById('tabPolaris'),
     settingsDremio: document.getElementById('settingsDremio'),
     settingsPolaris: document.getElementById('settingsPolaris'),
-    
+
     // Dremio Settings
     setDremioUrl: document.getElementById('setDremioUrl'),
     setDremioPat: document.getElementById('setDremioPat'),
     setDremioProjectId: document.getElementById('setDremioProjectId'),
     setDremioUsername: document.getElementById('setDremioUsername'),
     setDremioPassword: document.getElementById('setDremioPassword'),
-    
+
     // Polaris Settings
     setPolarisType: document.getElementById('setPolarisType'),
     setPolarisUrl: document.getElementById('setPolarisUrl'),
@@ -26,14 +26,14 @@ const DOM = {
     setPolarisWarehouse: document.getElementById('setPolarisWarehouse'),
     polarisOauthGroup: document.getElementById('polarisOauthGroup'),
     polarisTokenGroup: document.getElementById('polarisTokenGroup'),
-    
+
     // Source UI
     manualSourceGroup: document.getElementById('manualSourceGroup'),
     manualSourceInput: document.getElementById('manualSourceInput'),
     dremioSourceGroup: document.getElementById('dremioSourceGroup'),
     sourceTree: document.getElementById('sourceTree'),
     sourcePathDisplay: document.getElementById('sourcePathDisplay'),
-    
+
     // Target UI
     chkManualMode: document.getElementById('chkManualMode'),
     dremioSourceGroup: document.getElementById('dremioSourceGroup'),
@@ -41,23 +41,23 @@ const DOM = {
     manualSourceInput: document.getElementById('manualSourceInput'),
     bulkMigrateGroup: document.getElementById('bulkMigrateGroup'),
     sourceDescription: document.getElementById('sourceDescription'),
-    
+
     targetPathInput: document.getElementById('targetPathInput'),
     clusterByInput: document.getElementById('clusterByInput'),
     migrationStrategy: document.getElementById('migrationStrategy'),
     chkValidate: document.getElementById('chkValidate'),
     chkBulkMigrate: document.getElementById('chkBulkMigrate'),
-    
+
     btnMigrate: document.getElementById('btnMigrate'),
     logConsole: document.getElementById('logConsole'),
     toast: document.getElementById('toast'),
-    
+
     // History Modal
     historyModal: document.getElementById('historyModal'),
     btnOpenHistory: document.getElementById('btnOpenHistory'),
     btnCloseHistoryModal: document.getElementById('btnCloseHistoryModal'),
     historyTableBody: document.getElementById('historyTableBody'),
-    
+
     // Diagnostics Modal
     diagnosticsModal: document.getElementById('diagnosticsModal'),
     btnOpenDiagnostics: document.getElementById('btnOpenDiagnostics'),
@@ -69,14 +69,14 @@ const DOM = {
 let selectedSourcePath = null;
 let selectedSourceItem = null;
 
-function showToast(msg, isError=false) {
+function showToast(msg, isError = false) {
     DOM.toast.textContent = msg;
     DOM.toast.style.borderLeftColor = isError ? 'var(--danger)' : 'var(--primary)';
     DOM.toast.classList.add('show');
     setTimeout(() => DOM.toast.classList.remove('show'), 3000);
 }
 
-function logMsg(msg, color='#a7f3d0') {
+function logMsg(msg, color = '#a7f3d0') {
     const time = new Date().toLocaleTimeString();
     const div = document.createElement('div');
     div.style.color = color;
@@ -134,21 +134,21 @@ async function loadSettings() {
     try {
         const res = await fetch('/api/settings');
         const data = await res.json();
-        if(data.dremio_url) DOM.setDremioUrl.value = data.dremio_url;
-        if(data.dremio_pat) DOM.setDremioPat.value = data.dremio_pat;
-        if(data.dremio_project_id) DOM.setDremioProjectId.value = data.dremio_project_id;
-        if(data.dremio_username) DOM.setDremioUsername.value = data.dremio_username;
-        if(data.dremio_password) DOM.setDremioPassword.value = data.dremio_password;
-        
-        if(data.polaris_type) {
+        if (data.dremio_url) DOM.setDremioUrl.value = data.dremio_url;
+        if (data.dremio_pat) DOM.setDremioPat.value = data.dremio_pat;
+        if (data.dremio_project_id) DOM.setDremioProjectId.value = data.dremio_project_id;
+        if (data.dremio_username) DOM.setDremioUsername.value = data.dremio_username;
+        if (data.dremio_password) DOM.setDremioPassword.value = data.dremio_password;
+
+        if (data.polaris_type) {
             DOM.setPolarisType.value = data.polaris_type;
             DOM.setPolarisType.dispatchEvent(new Event('change'));
         }
-        if(data.polaris_url) DOM.setPolarisUrl.value = data.polaris_url;
-        if(data.polaris_client_id) DOM.setPolarisClientId.value = data.polaris_client_id;
-        if(data.polaris_client_secret) DOM.setPolarisClientSecret.value = data.polaris_client_secret;
-        if(data.polaris_token) DOM.setPolarisToken.value = data.polaris_token;
-        if(data.polaris_warehouse) DOM.setPolarisWarehouse.value = data.polaris_warehouse;
+        if (data.polaris_url) DOM.setPolarisUrl.value = data.polaris_url;
+        if (data.polaris_client_id) DOM.setPolarisClientId.value = data.polaris_client_id;
+        if (data.polaris_client_secret) DOM.setPolarisClientSecret.value = data.polaris_client_secret;
+        if (data.polaris_token) DOM.setPolarisToken.value = data.polaris_token;
+        if (data.polaris_warehouse) DOM.setPolarisWarehouse.value = data.polaris_warehouse;
     } catch (e) {
         console.error(e);
     }
@@ -171,16 +171,16 @@ async function saveSettings() {
     try {
         const res = await fetch('/api/settings', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
         const data = await res.json();
-        if(data.success) {
+        if (data.success) {
             showToast("Settings saved successfully.");
             DOM.settingsModal.classList.add('hidden');
             loadNamespaceRoot(); // refresh tree
         }
-    } catch(e) {
+    } catch (e) {
         showToast("Failed to save settings.", true);
     }
 }
@@ -189,14 +189,14 @@ async function testConnection() {
     DOM.btnTestConn.textContent = "Testing...";
     try {
         await saveSettings(); // Save first then test
-        const res = await fetch('/api/test-connection', {method: 'POST'});
+        const res = await fetch('/api/test-connection', { method: 'POST' });
         const data = await res.json();
-        if(data.success) {
+        if (data.success) {
             showToast("Connection Successful!");
         } else {
             showToast(`Connection Failed: ${data.message}`, true);
         }
-    } catch(e) {
+    } catch (e) {
         showToast("Error testing connection.", true);
     } finally {
         DOM.btnTestConn.textContent = "Test Dremio";
@@ -206,51 +206,51 @@ async function testConnection() {
 // --- Namespace Browser ---
 function createTreeNode(item, pathList) {
     const div = document.createElement('div');
-    
+
     const nodeRow = document.createElement('div');
     nodeRow.className = 'tree-node';
-    
+
     // Icon based on type
     let icon = '📁';
-    if(item.type === 'CONTAINER' || item.type === 'SOURCE' || item.type === 'SPACE') icon = '🗄️';
-    if(item.type === 'DATASET' || item.type === 'PHYSICAL_DATASET') icon = '📊';
-    if(item.type === 'FILE') icon = '📄';
-    
+    if (item.type === 'CONTAINER' || item.type === 'SOURCE' || item.type === 'SPACE') icon = '🗄️';
+    if (item.type === 'DATASET' || item.type === 'PHYSICAL_DATASET') icon = '📊';
+    if (item.type === 'FILE') icon = '📄';
+
     nodeRow.innerHTML = `<span>${icon}</span> <span>${item.name}</span>`;
-    
+
     const childrenContainer = document.createElement('div');
     childrenContainer.className = 'tree-children hidden';
-    
+
     div.appendChild(nodeRow);
     div.appendChild(childrenContainer);
-    
+
     let loaded = false;
-    
+
     nodeRow.addEventListener('click', async (e) => {
         e.stopPropagation();
-        
+
         // Select logic
         document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('selected'));
         nodeRow.classList.add('selected');
         selectedSourcePath = item.path.join('.'); // Format for Dremio SQL
         selectedSourceItem = item;
         DOM.sourcePathDisplay.value = selectedSourcePath;
-        
+
         // Expand logic for containers
-        if(item.type !== 'DATASET' && item.type !== 'PHYSICAL_DATASET' && item.type !== 'FILE') {
+        if (item.type !== 'DATASET' && item.type !== 'PHYSICAL_DATASET' && item.type !== 'FILE') {
             childrenContainer.classList.toggle('hidden');
-            
-            if(!childrenContainer.classList.contains('hidden') && !loaded) {
+
+            if (!childrenContainer.classList.contains('hidden') && !loaded) {
                 nodeRow.querySelector('span').textContent = '⏳'; // Loading
                 try {
                     const encodedPath = encodeURIComponent(item.path.join(','));
                     const res = await fetch(`/api/catalog/children?path=${encodedPath}`);
                     const data = await res.json();
-                    
-                    if(data.success && data.data && data.data.children) {
+
+                    if (data.success && data.data && data.data.children) {
                         childrenContainer.innerHTML = '';
                         data.data.children.forEach(child => {
-                            const cPath = [...item.path, child.path ? child.path[child.path.length-1] : child.id];
+                            const cPath = [...item.path, child.path ? child.path[child.path.length - 1] : child.id];
                             childrenContainer.appendChild(createTreeNode({
                                 name: child.id,
                                 type: child.type,
@@ -259,7 +259,7 @@ function createTreeNode(item, pathList) {
                         });
                         loaded = true;
                     }
-                } catch(e) {
+                } catch (e) {
                     console.error("Failed to load children", e);
                 } finally {
                     nodeRow.querySelector('span').textContent = icon;
@@ -267,7 +267,7 @@ function createTreeNode(item, pathList) {
             }
         }
     });
-    
+
     return div;
 }
 
@@ -276,9 +276,9 @@ async function loadNamespaceRoot() {
     try {
         const res = await fetch('/api/catalog/root');
         const data = await res.json();
-        
+
         DOM.sourceTree.innerHTML = '';
-        if(data.success && data.data) {
+        if (data.success && data.data) {
             data.data.forEach(item => {
                 DOM.sourceTree.appendChild(createTreeNode(item, item.path));
             });
@@ -287,15 +287,15 @@ async function loadNamespaceRoot() {
             DOM.sourceTree.innerHTML = `<div style="padding: 1rem; color: var(--danger);">${data.error || 'Failed to load namespace'}</div>`;
             logMsg("Failed to load namespace. Please check settings.", "var(--danger)");
         }
-    } catch(e) {
+    } catch (e) {
         DOM.sourceTree.innerHTML = `<div style="padding: 1rem; color: var(--danger);">Connection error</div>`;
     }
 }
 
 // --- Migration Execution ---
-async function pollJob(jobId, isPySpark=false) {
+async function pollJob(jobId, isPySpark = false) {
     let lastState = null;
-    
+
     while (true) {
         await new Promise(r => setTimeout(r, 2000));
         try {
@@ -303,13 +303,13 @@ async function pollJob(jobId, isPySpark=false) {
             const data = await res.json();
             if (data.success && data.data) {
                 const state = data.data.jobState;
-                
+
                 // Only log if state changed to avoid spam
                 if (state !== lastState) {
                     logMsg(`Job Status: ${state}`);
                     lastState = state;
                 }
-                
+
                 if (state === 'COMPLETED') {
                     return true;
                 } else if (state === 'FAILED' || state === 'CANCELED') {
@@ -318,7 +318,7 @@ async function pollJob(jobId, isPySpark=false) {
                     return false;
                 }
             }
-        } catch(e) {
+        } catch (e) {
             console.error("Polling error", e);
         }
     }
@@ -329,48 +329,48 @@ async function startBulkMigration(strat, targetNamespace, isPySpark) {
         showToast("For Bulk Migration, please select a Folder or Source from the tree.", true);
         return;
     }
-    
+
     DOM.btnMigrate.disabled = true;
     DOM.btnMigrate.innerHTML = '<div class="loader"></div> Bulk Migrating...';
-    
+
     logMsg(`--- Starting Bulk Migration: ${selectedSourcePath} ---`, "var(--primary)");
     logMsg("Fetching folder contents from Dremio...");
-    
+
     try {
         const encodedPath = encodeURIComponent(selectedSourceItem.path.join(','));
         const res = await fetch(`/api/catalog/children?path=${encodedPath}`);
         const data = await res.json();
-        
+
         if (!data.success || !data.data || !data.data.children) {
             logMsg("Failed to retrieve folder contents.", "var(--danger)");
             DOM.btnMigrate.disabled = false;
             DOM.btnMigrate.textContent = 'Start Migration';
             return;
         }
-        
+
         const datasets = data.data.children.filter(c => c.type === 'DATASET' || c.type === 'PHYSICAL_DATASET');
-        
+
         if (datasets.length === 0) {
             logMsg("No tables found directly inside this folder.", "var(--danger)");
             DOM.btnMigrate.disabled = false;
             DOM.btnMigrate.textContent = 'Start Migration';
             return;
         }
-        
+
         logMsg(`Found ${datasets.length} tables to migrate.`);
-        
+
         let successCount = 0;
         for (let i = 0; i < datasets.length; i++) {
             const table = datasets[i];
-            const tableName = table.path ? table.path[table.path.length-1] : table.id;
+            const tableName = table.path ? table.path[table.path.length - 1] : table.id;
             const fullSourcePath = [...selectedSourceItem.path, tableName].join('.');
             const fullTargetPath = `${targetNamespace}.${tableName}`;
-            
-            logMsg(`[${i+1}/${datasets.length}] Migrating ${tableName}...`);
-            
+
+            logMsg(`[${i + 1}/${datasets.length}] Migrating ${tableName}...`);
+
             const clusterBy = DOM.clusterByInput.value.trim();
             const validate = DOM.chkValidate.checked;
-            
+
             const payload = {
                 source_path: fullSourcePath,
                 target_path: fullTargetPath,
@@ -378,15 +378,15 @@ async function startBulkMigration(strat, targetNamespace, isPySpark) {
                 cluster_by: clusterBy,
                 validate: validate
             };
-            
+
             try {
                 const mRes = await fetch('/api/migrate', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
                 const mData = await mRes.json();
-                
+
                 if (mData.success && mData.job_id) {
                     const ok = await pollJob(mData.job_id, isPySpark);
                     if (ok) successCount++;
@@ -397,15 +397,15 @@ async function startBulkMigration(strat, targetNamespace, isPySpark) {
                 logMsg(`Error migrating ${tableName}`, "var(--danger)");
             }
         }
-        
+
         logMsg(`--- Bulk Migration Complete! Migrated ${successCount}/${datasets.length} tables. ---`, "var(--primary)");
         showToast("Bulk Migration Finished!");
-        
-    } catch(e) {
+
+    } catch (e) {
         console.error("Bulk Migration Error", e);
         logMsg("A fatal error occurred during bulk migration.", "var(--danger)");
     }
-    
+
     DOM.btnMigrate.disabled = false;
     DOM.btnMigrate.textContent = 'Start Migration';
 }
@@ -430,31 +430,31 @@ async function startMigration() {
         }
         finalSource = selectedSourcePath.join('.');
     }
-    
+
     const targetPath = DOM.targetPathInput.value.trim();
-    if(!targetPath) {
+    if (!targetPath) {
         showToast("Please enter a Target Path.", true);
         return;
     }
-    
+
     if (DOM.chkBulkMigrate.checked) {
         await startBulkMigration(strat, targetPath, isPySpark);
         return;
     }
-    
-    if(!finalSource) {
+
+    if (!finalSource) {
         showToast("Please select a source dataset from the tree.", true);
         return;
     }
-    
+
     DOM.btnMigrate.disabled = true;
     DOM.btnMigrate.innerHTML = '<div class="loader"></div> Migrating...';
-    
+
     logMsg(`Starting migration (${strat}): ${finalSource} -> ${targetPath}`);
-    
+
     const clusterBy = DOM.clusterByInput.value.trim();
     const validate = DOM.chkValidate.checked;
-    
+
     const payload = {
         source_path: finalSource,
         target_path: targetPath,
@@ -462,15 +462,15 @@ async function startMigration() {
         cluster_by: clusterBy,
         validate: validate
     };
-    
+
     try {
         const res = await fetch('/api/migrate', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
         const data = await res.json();
-        
+
         if (data.success && data.job_id) {
             logMsg(`Migration job submitted. ID: ${data.job_id}`);
             const success = await pollJob(data.job_id, isPySpark);
@@ -482,7 +482,7 @@ async function startMigration() {
             logMsg(`Migration failed to start: ${data.error}`, "var(--danger)");
             showToast("Migration failed.", true);
         }
-    } catch(e) {
+    } catch (e) {
         logMsg(`Error: ${e.message}`, "var(--danger)");
     } finally {
         DOM.btnMigrate.disabled = false;
@@ -495,18 +495,18 @@ async function loadHistory() {
     try {
         const res = await fetch('/api/history');
         const data = await res.json();
-        
+
         DOM.historyTableBody.innerHTML = '';
-        if(data.success && data.data) {
+        if (data.success && data.data) {
             data.data.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.style.borderBottom = "1px solid var(--border)";
-                
+
                 let statusColor = "var(--text-muted)";
                 if (row.status === "COMPLETED") statusColor = "var(--success)";
                 if (row.status === "FAILED" || row.status === "VALIDATION_FAILED") statusColor = "var(--danger)";
                 if (row.status === "RUNNING") statusColor = "var(--primary)";
-                
+
                 let matchIcon = '-';
                 if (row.row_count !== null && row.source_row_count !== null) {
                     if (row.row_count === row.source_row_count) {
@@ -531,7 +531,7 @@ async function loadHistory() {
                 DOM.historyTableBody.appendChild(tr);
             });
         }
-    } catch(e) {
+    } catch (e) {
         console.error("Failed to load history", e);
     }
 }
@@ -556,11 +556,11 @@ async function runDiagnostics() {
     DOM.btnRunDiagnostics.disabled = true;
     DOM.btnRunDiagnostics.innerHTML = '<div class="loader"></div> Running...';
     DOM.diagnosticsResults.innerHTML = '';
-    
+
     try {
         const res = await fetch('/api/diagnostics');
         const data = await res.json();
-        
+
         if (data.success && data.data) {
             data.data.forEach(check => {
                 const div = document.createElement('div');
@@ -568,10 +568,10 @@ async function runDiagnostics() {
                 div.style.borderRadius = "8px";
                 div.style.border = "1px solid var(--border)";
                 div.style.background = "rgba(0,0,0,0.2)";
-                
+
                 let statusIcon = "❓";
                 let statusColor = "var(--text-muted)";
-                
+
                 if (check.status === "PASS") {
                     statusIcon = "✅";
                     statusColor = "var(--success)";
@@ -582,7 +582,7 @@ async function runDiagnostics() {
                     statusIcon = "⚠️";
                     statusColor = "#eab308"; // yellow
                 }
-                
+
                 div.innerHTML = `
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                         <strong style="font-size: 1.1rem;">${check.name}</strong>

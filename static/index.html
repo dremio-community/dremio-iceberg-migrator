@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dremio Iceberg Migrator</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
     <header>
         <h1>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
             </svg>
@@ -19,15 +24,28 @@
         </h1>
         <div style="display: flex; gap: 1rem;">
             <button class="btn btn-secondary" id="btnOpenDiagnostics">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
                 System Health
             </button>
             <button class="btn btn-secondary" id="btnOpenHistory">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
                 History
             </button>
             <button class="btn btn-secondary" id="btnOpenSettings">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
                 Settings
             </button>
         </div>
@@ -36,17 +54,26 @@
     <main>
         <!-- Left Column: Source Selection -->
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.75rem;">
-                <h2 style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">Source Dataset <span class="info-icon" data-tooltip="Select the source folder or table you wish to migrate. This uses Dremio's catalog as a universal file explorer.">?</span></h2>
-                <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                <h2 style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">Source Dataset <span
+                        class="info-icon"
+                        data-tooltip="Select the source folder or table you wish to migrate. This uses Dremio's catalog as a universal file explorer.">?</span>
+                </h2>
+                <div
+                    style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
                     <input type="checkbox" id="chkManualMode">
-                    <label for="chkManualMode" style="cursor: pointer; margin: 0;">Manual Input Mode <span class="info-icon" data-tooltip="Enable this to bypass the Dremio tree browser and manually provide a Spark SQL path or physical S3 URI for PySpark migrations.">?</span></label>
+                    <label for="chkManualMode" style="cursor: pointer; margin: 0;">Manual Input Mode <span
+                            class="info-icon"
+                            data-tooltip="Enable this to bypass the Dremio tree browser and manually provide a Spark SQL path or physical S3 URI for PySpark migrations.">?</span></label>
                 </div>
             </div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;" id="sourceDescription">Select a Source. The Migrator will automatically resolve S3 URIs for PySpark migrations.</p>
-            
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;" id="sourceDescription">Select
+                a Source. The Migrator will automatically resolve S3 URIs for PySpark migrations.</p>
+
             <div class="form-group" id="dremioSourceGroup">
-                <input type="text" id="sourcePathDisplay" readonly placeholder="Selected Source Path..." style="margin-bottom: 0.5rem; background: rgba(0,0,0,0.4);">
+                <input type="text" id="sourcePathDisplay" readonly placeholder="Selected Source Path..."
+                    style="margin-bottom: 0.5rem; background: rgba(0,0,0,0.4);">
                 <div class="tree-container" id="sourceTree" style="margin-bottom: 1rem;">
                     <div style="text-align:center; padding: 2rem; color: var(--text-muted);">
                         <div class="loader"></div> Loading Namespace...
@@ -54,14 +81,18 @@
                 </div>
             </div>
 
-            <div class="form-group" id="bulkMigrateGroup" style="display: flex; align-items: center; gap: 0.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <div class="form-group" id="bulkMigrateGroup"
+                style="display: flex; align-items: center; gap: 0.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
                 <input type="checkbox" id="chkBulkMigrate" style="width: auto;">
-                <label for="chkBulkMigrate" style="margin: 0;">Enable Bulk Migration <span class="info-icon" data-tooltip="If enabled, the Migrator will scan the selected Dremio folder and sequentially migrate every table inside it.">?</span></label>
+                <label for="chkBulkMigrate" style="margin: 0;">Enable Bulk Migration <span class="info-icon"
+                        data-tooltip="If enabled, the Migrator will scan the selected Dremio folder and sequentially migrate every table inside it.">?</span></label>
             </div>
 
-            <div class="form-group" id="manualSourceGroup" style="display: none; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <div class="form-group" id="manualSourceGroup"
+                style="display: none; border-top: 1px solid var(--border); padding-top: 1rem;">
                 <label>Manual Source URI (Optional PySpark Override)</label>
-                <input type="text" id="manualSourceInput" placeholder="s3://bucket/delta/sales or file:///path/to/parquet">
+                <input type="text" id="manualSourceInput"
+                    placeholder="s3://bucket/delta/sales or file:///path/to/parquet">
             </div>
         </div>
 
@@ -69,18 +100,21 @@
         <div class="card" style="display: flex; flex-direction: column; gap: 1.5rem;">
             <div>
                 <h2>Target Destination</h2>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Define the destination for the new Iceberg table.</p>
-                
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Define the destination for
+                    the new Iceberg table.</p>
+
                 <div class="form-group">
-                    <label>Target Path <span class="info-icon" data-tooltip="The destination namespace in your Polaris or Dremio Open Catalog. Example: polaris.sales_db.revenue">?</span></label>
+                    <label>Target Path <span class="info-icon"
+                            data-tooltip="The destination namespace in your Polaris or Dremio Open Catalog. Example: polaris.sales_db.revenue">?</span></label>
                     <input type="text" id="targetPathInput" placeholder="catalog.namespace.table">
                 </div>
-                
+
                 <div class="form-group">
-                    <label>Cluster By (Optional) <span class="info-icon" data-tooltip="Provide a comma-separated list of columns to define the Iceberg Sort Order. This will drastically improve query performance. Example: region, order_date">?</span></label>
+                    <label>Cluster By (Optional) <span class="info-icon"
+                            data-tooltip="Provide a comma-separated list of columns to define the Iceberg Sort Order. This will drastically improve query performance. Example: region, order_date">?</span></label>
                     <input type="text" id="clusterByInput" placeholder="e.g. region, order_date">
                 </div>
-                
+
                 <div class="form-group">
                     <label>Migration Strategy <span class="info-icon" data-tooltip="CTAS (Dremio): Best for JSON, CSV, Hive, or Hudi. Rewrites all data into new Parquet files.
 IN-PLACE (PySpark): Best for Parquet/Hive. Converts metadata to Iceberg without rewriting files.
@@ -94,16 +128,18 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
 
                 <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
                     <input type="checkbox" id="chkValidate" style="width: auto;" checked>
-                    <label for="chkValidate" style="margin: 0;">Perform Data Integrity Check <span class="info-icon" data-tooltip="When enabled, the backend will automatically perform a row-count validation query on the target table after the migration finishes.">?</span></label>
+                    <label for="chkValidate" style="margin: 0;">Perform Data Integrity Check <span class="info-icon"
+                            data-tooltip="When enabled, the backend will automatically perform a row-count validation query on the target table after the migration finishes.">?</span></label>
                 </div>
             </div>
 
             <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1.5rem;">
                 <h2>Execution</h2>
-                <button class="btn" id="btnMigrate" style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 1rem;">
+                <button class="btn" id="btnMigrate"
+                    style="width: 100%; justify-content: center; font-size: 1.1rem; padding: 1rem;">
                     Start Migration
                 </button>
-                
+
                 <div class="log-console" id="logConsole">
                     > System initialized... Waiting for user input.
                 </div>
@@ -114,19 +150,22 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
     <!-- Settings Modal -->
     <div class="modal-overlay hidden" id="settingsModal">
         <div class="modal" style="width: 500px; max-height: 90vh; overflow-y: auto;">
-            <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.5rem; justify-content: space-between; align-items: center;">
+            <div
+                style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.5rem; justify-content: space-between; align-items: center;">
                 <div style="display: flex; gap: 1rem;">
                     <h2 id="tabDremio" style="cursor: pointer; color: var(--primary); margin: 0;">Dremio</h2>
                     <h2 id="tabPolaris" style="cursor: pointer; color: var(--text-muted); margin: 0;">Polaris</h2>
                 </div>
-                <button id="btnCloseModal" style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+                <button id="btnCloseModal"
+                    style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
             </div>
-            
+
             <!-- Dremio Settings -->
             <div id="settingsDremio">
                 <div class="form-group">
                     <label>Dremio URL</label>
-                    <input type="text" id="setDremioUrl" placeholder="http://localhost:9047 or https://api.dremio.cloud">
+                    <input type="text" id="setDremioUrl"
+                        placeholder="http://localhost:9047 or https://api.dremio.cloud">
                 </div>
                 <div class="form-group">
                     <label>Personal Access Token (PAT)</label>
@@ -136,7 +175,8 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
                     <label>Project ID (Dremio Cloud Only)</label>
                     <input type="text" id="setDremioProjectId" placeholder="e.g. 1a2b3c4d-5e6f-7g8h-9i0j...">
                 </div>
-                <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-size: 0.8rem;">OR (DREMIO SOFTWARE ONLY)</div>
+                <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-size: 0.8rem;">OR (DREMIO
+                    SOFTWARE ONLY)</div>
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" id="setDremioUsername">
@@ -181,7 +221,7 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
                     <input type="text" id="setPolarisWarehouse" placeholder="my_warehouse">
                 </div>
             </div>
-            
+
             <div style="display: flex; gap: 1rem; margin-top: 2rem;">
                 <button class="btn btn-secondary" id="btnTestConn" style="flex: 1;">Test Dremio</button>
                 <button class="btn" id="btnSaveSettings" style="flex: 2;">Save & Close</button>
@@ -192,11 +232,13 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
     <!-- History Modal -->
     <div class="modal-overlay hidden" id="historyModal">
         <div class="modal" style="width: 800px; max-height: 90vh; overflow-y: auto;">
-            <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.5rem; justify-content: space-between; align-items: center;">
+            <div
+                style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.5rem; justify-content: space-between; align-items: center;">
                 <h2 style="color: var(--primary); margin: 0;">Migration History</h2>
-                <button id="btnCloseHistoryModal" style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+                <button id="btnCloseHistoryModal"
+                    style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
             </div>
-            
+
             <table style="width: 100%; text-align: left; border-collapse: collapse; margin-top: 1rem;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--border);">
@@ -220,13 +262,16 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
     <!-- Diagnostics Modal -->
     <div class="modal-overlay hidden" id="diagnosticsModal">
         <div class="modal" style="width: 600px; max-height: 90vh; overflow-y: auto;">
-            <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.5rem; justify-content: space-between; align-items: center;">
+            <div
+                style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; padding-bottom: 0.5rem; justify-content: space-between; align-items: center;">
                 <h2 style="color: var(--primary); margin: 0;">System Diagnostics</h2>
-                <button id="btnCloseDiagnosticsModal" style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
+                <button id="btnCloseDiagnosticsModal"
+                    style="background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
             </div>
-            
+
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
-                Run this diagnostic suite to ensure your local environment has the required dependencies to perform PySpark Zero-Copy migrations. (Note: CTAS migrations do not require local PySpark or Java).
+                Run this diagnostic suite to ensure your local environment has the required dependencies to perform
+                PySpark Zero-Copy migrations. (Note: CTAS migrations do not require local PySpark or Java).
             </p>
 
             <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
@@ -244,4 +289,5 @@ SNAPSHOT (PySpark): Best for Delta Lake. Safely converts Delta to Iceberg.">?</s
 
     <script src="js/app.js"></script>
 </body>
+
 </html>
