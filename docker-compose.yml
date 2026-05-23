@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   migrator:
-    build: .
+    image: mshainman/dremio-iceberg-migrator:latest
     container_name: dremio-iceberg-migrator
     ports:
       - "8771:8771"

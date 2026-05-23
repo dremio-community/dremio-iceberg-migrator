@@ -15,17 +15,13 @@ A beautiful, standalone application designed to rapidly migrate legacy Parquet, 
 ## Installation & Usage
 
 ### Option 1: Docker (Recommended)
-You can deploy the Migrator instantly with zero dependencies using Docker Compose. This ensures Java, Python, and PySpark are perfectly configured out of the box.
+You can deploy the Migrator instantly with zero dependencies using Docker. This ensures Java, Python, and PySpark are perfectly configured out of the box.
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/dremio-community/dremio-iceberg-migrator.git
-cd dremio-iceberg-migrator
+# 1. Start the container in the background
+docker run -d -p 8771:8771 -v migrator-data:/app/data --name dremio-iceberg-migrator mshainman/dremio-iceberg-migrator:latest
 
-# 2. Start the container in the background
-docker-compose up -d
-
-# 3. Access the UI
+# 2. Access the UI
 # Open http://localhost:8771 in your web browser.
 ```
 *(Note: Your migration history is persisted in the `./data` folder on your host machine).*
