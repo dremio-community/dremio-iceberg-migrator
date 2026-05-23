@@ -24,6 +24,7 @@ docker run -d -p 8771:8771 -v migrator-data:/app/data --name dremio-iceberg-migr
 # 2. Access the UI
 # Open http://localhost:8771 in your web browser.
 ```
+**Docker Hub Repository:** [https://hub.docker.com/r/mshainman/dremio-iceberg-migrator](https://hub.docker.com/r/mshainman/dremio-iceberg-migrator)
 *(Note: Your migration history is persisted in the `./data` folder on your host machine).*
 
 ### Option 2: Local Script (Linux/Mac)
