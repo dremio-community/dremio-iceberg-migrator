@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+migrator.db
+data/
+.env
+venv/

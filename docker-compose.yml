@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  migrator:
+    build: .
+    container_name: dremio-iceberg-migrator
+    ports:
+      - "8771:8771"
+    volumes:
+      # Mount the local data folder to preserve the SQLite audit ledger
+      - ./data:/app/data
+    restart: unless-stopped
