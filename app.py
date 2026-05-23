@@ -332,6 +332,11 @@ class MigratorHandler(http.server.BaseHTTPRequestHandler):
             except Exception as e:
                 self._send_json({"success": False, "error": str(e)})
 
+        elif path == "/api/shutdown":
+            self._send_json({"success": True, "message": "Shutting down Migrator..."})
+            logger.info("Shutdown requested via API. Exiting...")
+            threading.Thread(target=lambda: (time.sleep(1), os._exit(0)), daemon=True).start()
+
         else:
             self._send_json({"error": "Unknown endpoint"}, 404)
 
