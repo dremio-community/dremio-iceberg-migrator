@@ -19,7 +19,7 @@ You can deploy the Migrator instantly with zero dependencies using Docker Compos
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/dremio-hub/dremio-iceberg-migrator.git
+git clone https://github.com/dremio-community/dremio-iceberg-migrator.git
 cd dremio-iceberg-migrator
 
 # 2. Start the container in the background
