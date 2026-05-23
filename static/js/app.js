@@ -63,7 +63,10 @@ const DOM = {
     btnOpenDiagnostics: document.getElementById('btnOpenDiagnostics'),
     btnCloseDiagnosticsModal: document.getElementById('btnCloseDiagnosticsModal'),
     btnRunDiagnostics: document.getElementById('btnRunDiagnostics'),
-    diagnosticsResults: document.getElementById('diagnosticsResults')
+    diagnosticsResults: document.getElementById('diagnosticsResults'),
+    
+    // Shutdown
+    btnShutdown: document.getElementById('btnShutdown')
 };
 
 let selectedSourcePath = null;
@@ -628,6 +631,14 @@ DOM.btnOpenSettings.addEventListener('click', () => {
 DOM.btnSaveSettings.addEventListener('click', saveSettings);
 DOM.btnTestConn.addEventListener('click', testConnection);
 DOM.btnMigrate.addEventListener('click', startMigration);
+DOM.btnShutdown.addEventListener('click', async () => {
+    if (confirm("Are you sure you want to shut down the Migrator?")) {
+        try {
+            await fetch('/api/shutdown', { method: 'POST' });
+        } catch(e) {}
+        document.body.innerHTML = '<div style="display: flex; height: 100vh; align-items: center; justify-content: center; font-size: 2rem; color: var(--text-muted);">The Migrator has been shut down. You can safely close this tab.</div>';
+    }
+});
 
 DOM.chkManualMode.addEventListener('change', (e) => {
     if (e.target.checked) {
